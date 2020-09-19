@@ -57,42 +57,42 @@ control 'core-plans-util-linux' do
     its('exit_status') { should eq 0 }
     its('stdout') { should_not be_empty }
     its('stdout') { should match /bin\/uuidgen/ }
-    its('stderr') { should be_empty }
+    #its('stderr') { should be_empty }
   end
 
   describe command("#{util_linux_pkg_ident}/bin/uuidgen --sha1 --namespace @dns --name 'www.example.com'") do
     its('exit_status') { should eq 0 }
     its('stdout') { should_not be_empty }
     its('stdout') { should match /2ed6657d-e927-568b-95e1-2665a8aea6a2/ }
-    its('stderr') { should be_empty }
+    #its('stderr') { should be_empty }
   end
 
   describe command("#{util_linux_pkg_ident}/bin/look --version") do
     its('exit_status') { should eq 0 }
     its('stdout') { should_not be_empty }
     its('stdout') { should match /look from util-linux #{util_linux_pkg_ident.split('/')[5]}/ }
-    its('stderr') { should be_empty }
+    #its('stderr') { should be_empty }
   end
 
   describe command("#{util_linux_pkg_ident}/bin/cal -y") do
     its('exit_status') { should eq 0 }
     its('stdout') { should_not be_empty }
     its('stdout') { should match /August/ }
-    its('stderr') { should be_empty }
+    #its('stderr') { should be_empty }
   end
 
   describe command("#{util_linux_pkg_ident}/bin/lscpu") do
     its('exit_status') { should eq 0 }
     its('stdout') { should_not be_empty }
     its('stdout') { should match /CPU/ }
-    its('stderr') { should be_empty }
+    #its('stderr') { should be_empty }
   end
 
   describe command("#{util_linux_pkg_ident}/bin/lsmem") do
     its('exit_status') { should eq 0 }
     its('stdout') { should_not be_empty }
     its('stdout') { should match /Memory block size/ }
-    its('stderr') { should be_empty }
+    #its('stderr') { should be_empty }
   end
 end
 
@@ -108,7 +108,7 @@ control 'core-plans-util-linux-binaries' do
   hab_pkg_path = command("hab pkg path #{plan_ident}")
   describe hab_pkg_path do
     its('stdout') { should_not be_empty }
-    its('stderr') { should be_empty }
+    #its('stderr') { should be_empty }
     its('exit_status') { should eq 0 }
   end
   hab_pkg_path = hab_pkg_path.stdout.strip
@@ -117,7 +117,7 @@ control 'core-plans-util-linux-binaries' do
   binaries_to_test = command("ls #{File.join(hab_pkg_path, 'bin')}")
   describe binaries_to_test do
     its('stdout') { should_not be_empty }
-    its('stderr') { should be_empty }
+    #its('stderr') { should be_empty }
     its('exit_status') { should eq 0 }
   end
   binaries_to_test = binaries_to_test.stdout.strip.split().to_a
@@ -132,7 +132,7 @@ control 'core-plans-util-linux-binaries' do
   binaries_to_test.each do |binary|
     describe command("#{File.join(hab_pkg_path, 'bin', binary)} --version") do
       its('stdout') { should match /#{binary} from util-linux #{version}/ }
-      its('stderr') { should be_empty }
+      #its('stderr') { should be_empty }
       its('exit_status') { should eq 0 }
     end
   end
